@@ -1,0 +1,7 @@
+class Solution:
+    def convertToWave(self, arr, N):
+        for i in range(1,N,2):
+            temp=arr[i-1]
+            arr[i-1]=arr[i]
+            arr[i]=temp
+        return arr
