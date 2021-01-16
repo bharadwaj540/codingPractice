@@ -1,0 +1,15 @@
+
+class Solution:
+    def smallestnum (self,n):
+        l=[int(i) for i in n]
+        l=sorted(l)
+        for i in l:
+            if i!=0:
+                k=i
+                l.remove(i)
+                break
+        res=str(k)
+        for i in l:
+            res+=str(i)
+        return res
+                
