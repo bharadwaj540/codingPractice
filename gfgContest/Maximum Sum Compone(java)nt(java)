@@ -1,0 +1,56 @@
+
+class Solution{
+    int parent[];
+    int rank[];
+    
+    
+    
+    int find(int i){
+        if(parent[i]==i){return i;}
+        else{
+            int val=find(parent[i]);
+            parent[i]=val;
+            return val;
+        }
+    }
+    
+    void union(int u,int v){
+        int parentU=find(u);
+        int parentV=find(v);
+        if(parentU!=parentV){
+        if(rank[parentU]>rank[parentV]){
+            parent[parentV]=parentU;
+        }
+        else if(rank[parentU]<rank[parentV]){
+             parent[parentU]=parentV;
+         }   
+         else{
+             rank[parentU]++;
+             parent[parentV]=parentU;
+         }
+        }
+    }
+    long solve(int V,int E,int[] Values,int[][] Edges){
+        parent=new int[V+1];
+        rank=new int[V+1];
+        for(int i=1;i<V+1;i++){
+            parent[i]=i;
+        }
+        Arrays.fill(rank,0);
+        HashMap<Integer,Long> dict=new HashMap<>();
+        for(int i=0;i<E;i++){
+            union(Edges[i][0],Edges[i][1]);
+        }
+            for(int j=1;j<V+1;j++){
+                 int grp=find(j);
+                Long val=dict.getOrDefault(grp,Long.valueOf(0))+Values[j-1];
+                dict.put(grp,val);
+            }
+        long res=0;
+        for(Long k:dict.values())
+        if(res<k){
+            res=k;
+        }
+        return res;
+    }
+}
