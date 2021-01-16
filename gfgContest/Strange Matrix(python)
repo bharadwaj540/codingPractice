@@ -1,0 +1,20 @@
+class Solution:
+    # do not edit this function
+    # use it to get the value of A[i][j]
+    def get(self, i, j):
+      return a.get(i,j)
+      
+    def solve(self, R, C):
+        res=0
+        col=-1
+        for i in range(C):
+            if(self.get(0,i)==1):
+                col=i
+                break
+        if(col==-1):
+            col=C-1
+        for i in range(R):
+            while(col>=0 and self.get(i,col)==1):
+                col-=1
+                res=i
+        return res
