@@ -1,0 +1,48 @@
+class Solution{
+     public int helpaterp(int[][] hospital) {
+        HashSet<String> fresh=new HashSet<>();
+        HashSet<String> rotten=new HashSet<>();
+        for(int i=0;i<hospital.length;i++){
+            for(int j=0;j<hospital[i].length;j++){
+                if(hospital[i][j]==1){
+                    fresh.add(""+i+j);
+                }
+                else if(hospital[i][j]==2){
+                    rotten.add(""+i+j);
+                }
+            }
+        }
+        int min=0;
+        int[][] directions={{1,0},{0,1},{-1,0},{0,-1}};
+        while(fresh.size()>0){
+            HashSet<String> infected=new HashSet<>();
+            for(String s:rotten){
+                int i=s.charAt(0)-'0';
+                int j=s.charAt(1)-'0';
+                for(int[] dir:directions){
+                    int nextI=i+dir[0];
+                    int nextJ=j+dir[1];
+                    if(fresh.contains(""+nextI+nextJ)){
+                        fresh.remove(""+nextI+nextJ);
+                        infected.add(""+nextI+nextJ);
+                    }
+                }
+            }
+             rotten=infected;
+             
+             if(infected.size()==0){
+                 break;
+             }
+             min++;
+        }
+            if(fresh.size()!=0){
+                return -1;
+            }
+            else{
+                return min;
+            }
+        
+        
+        
+    }
+}
